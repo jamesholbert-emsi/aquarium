@@ -68,3 +68,25 @@ export async function addFish(fish: Fish): Promise<Fish | null> {
 
   return null;
 }
+
+export async function updateFish(fish: Fish): Promise<true | null> {
+  console.log(fish);
+  return true;
+  // TODO: Derek/Shashi, get this working
+  const { error } = await supabase
+    .from("fish")
+    .update(fish)
+    .match({ fishid: fish.id });
+
+  if (!error) {
+    return true;
+  }
+
+  return null;
+}
+
+export async function getLifeEventsByFishId(
+  fishId: string
+): Promise<LifeEvent[]> {
+  return [] as LifeEvent[];
+}

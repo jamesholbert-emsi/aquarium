@@ -1,7 +1,7 @@
-import { ActionArgs } from "@remix-run/node";
+import { ActionArgs, redirect } from "@remix-run/node";
 import { Form } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { addFish } from "~/models/fish.server";
+import { Fish, addFish } from "~/models/fish.server";
 
 export async function action({ request }: ActionArgs) {
   const body = await request.formData();
@@ -11,6 +11,10 @@ export async function action({ request }: ActionArgs) {
   const formPayload = Object.fromEntries(body) as unknown as Fish;
 
   const updatedFish = await addFish(formPayload);
+
+  if (updatedFish) {
+    return redirect("/fish");
+  }
 
   return updatedFish;
 }
@@ -42,19 +46,19 @@ export default function Index() {
   );
 }
 
-// type FishProps = Fish
-
-const inputPrettyNames: Record<string, string> = {
+export const inputPrettyNames: Record<string, string> = {
   name: "Common Name",
   scientificname: "Scientific Name",
   distinguishingcharacteristics: "Distinguishing Characteristics",
   habitat: "Habitat",
 };
 
-const Input = ({
+export const Input = ({
   name,
   placeHolder,
+  defaultValue,
 }: {
+  defaultValue?: string;
   name: string;
   placeHolder: string;
 }) => {
@@ -67,6 +71,7 @@ const Input = ({
         {inputPrettyNames[name]}
       </label>
       <input
+        defaultValue={defaultValue}
         className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
         id={name}
         name={name}
@@ -75,12 +80,4 @@ const Input = ({
       />
     </div>
   );
-};
-
-export type Fish = {
-  id: string;
-  name: string;
-  scientificName: string;
-  distinguishingCharacteristics: string[];
-  habitat: string;
 };

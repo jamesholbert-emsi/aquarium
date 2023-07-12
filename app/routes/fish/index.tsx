@@ -1,22 +1,19 @@
-import { Link, useLoaderData } from "@remix-run/react";
-import { getAllFish } from "~/models/fish.server";
-
-export async function loader() {
-  return await getAllFish();
-}
+import { Link } from "@remix-run/react";
+import { useAllFishData } from "../fish";
 
 export default function Index() {
-  const fish = useLoaderData<typeof loader>();
+  const fishies = useAllFishData();
 
-  fish.forEach((f) => console.log(f.name));
   return (
     <main className="">
-      Main page for fishies
+      <h1 className="text-lg">The O-Fish-ial Lightcast Aquarium</h1>
+      {fishies.map((fish) => (
+        <div key={fish.name}>
+          <Link to={`/fish/${fish.id}`}>{fish.name}</Link>
+        </div>
+      ))}
       <div>
         <Link to="/fish/new">Add Fish</Link>
-      </div>
-      <div>
-        <Link to="/fish/edit">Edit Fish</Link>
       </div>
     </main>
   );
