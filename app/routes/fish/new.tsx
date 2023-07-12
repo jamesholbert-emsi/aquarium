@@ -6,10 +6,11 @@ import { addFish } from "~/models/fish.server";
 export async function action({ request }: ActionArgs) {
   const body = await request.formData();
 
-  const id = body.get("id");
-  invariant(typeof id === "string", "id field must be string");
+  //   const id = body.get("id");
+  //   invariant(typeof id === "string", "id field must be string");
+  const formPayload = Object.fromEntries(body) as unknown as Fish;
 
-  const updatedFish = await addFish();
+  const updatedFish = await addFish(formPayload);
 
   return updatedFish;
 }
@@ -23,9 +24,9 @@ export default function Index() {
           method="post"
         >
           <Input name="name" placeHolder="Red Fish" />
-          <Input name="scientificName" placeHolder="Very Red Fish" />
+          <Input name="scientificname" placeHolder="Very Red Fish" />
           <Input
-            name="distinguishingCharacteristics"
+            name="distinguishingcharacteristics"
             placeHolder="comma separated characteristics"
           />
           <Input name="habitat" placeHolder="The Ocean" />
@@ -45,8 +46,8 @@ export default function Index() {
 
 const inputPrettyNames: Record<string, string> = {
   name: "Common Name",
-  scientificName: "Scientific Name",
-  distinguishingCharacteristics: "Distinguishing Characteristics",
+  scientificname: "Scientific Name",
+  distinguishingcharacteristics: "Distinguishing Characteristics",
   habitat: "Habitat",
 };
 

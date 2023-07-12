@@ -1,3 +1,5 @@
+import { supabase } from "./user.server";
+
 export type Fish = {
   id: string;
   name: string;
@@ -43,9 +45,26 @@ const dummyFish: Fish[] = [
 ];
 
 export async function getAllFish() {
+  const { data, error } = await supabase.from("fish").select("*");
+
+  if (!error) {
+    return data as unknown as Fish[];
+  }
+
   return dummyFish;
 }
 
-export async function addFish() {
+export async function addFish(fish: Fish): Promise<Fish | null> {
+  const { data, error } = await supabase
+    .from("fish")
+    .insert([fish])
+    .select()
+    .single();
+
+  if (!error) {
+    return data;
+  }
+  console.log(error);
+
   return null;
 }
