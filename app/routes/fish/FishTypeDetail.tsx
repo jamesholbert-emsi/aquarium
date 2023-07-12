@@ -1,38 +1,26 @@
-import type { Fish } from "../../models/fish.server";
-export type FishType = {
-  name: string;
-  scientificName?: string;
-  family?: string;
-  color?: string;
-  diet?: string;
-  aggressiveness?: string;
-  tank?: string;
-  size?: string;
-  reefSafe?: boolean;
-  care?: string;
-  distinguishingCharacteristics?: string;
-  description?: string;
-};
+import type { FishType } from "../../models/fish.server";
+import InTheAquarium from "./InTheAquarium";
 
-// const InTheAquarium = ({ aquarium }) => {
-//   const list = aquarium.map((f) => {
-//     <div>something?</div>;
-//   });
-//   return list;
-// };
-
-const FishTypeDetail = (fish: Fish) => {
+const FishTypeDetail = ({
+  fish,
+  aquarium,
+}: {
+  fish: FishType;
+  aquarium: any;
+}) => {
+  console.log(aquarium);
   return (
     <div>
-      <img src={fish.image_url} className="w-full" />
+      <img src={fish.image_url} className="w-full" alt="" />
       <div className="p-4">
-        <h3 className="text-lg">In the Aquarium </h3>
-
+        <InTheAquarium
+          aquarium={aquarium.filter((f: any) => fish.id === f.fish_type_id)}
+        />
         <hr className="mb-4 mt-4" />
         <h3 className="text-lg">Details </h3>
         <div className="mt-2 text-gray-700">
           <div>Name: {fish.name}</div>
-          <div>Scientific Name: {fish.scientificName}</div>
+          <div>Scientific Name: {fish.scientific_name}</div>
           <div>Family: {fish.family}</div>
           <div>Color: {fish.color}</div>
         </div>
@@ -41,12 +29,12 @@ const FishTypeDetail = (fish: Fish) => {
 
         <h3 className="text-lg">Fish Care </h3>
         <div className="mt-2 text-gray-700">
-          <div>Fish Diet: {fish.diet}</div>
+          <div>Fish Diet: {fish.fish_diet}</div>
           <div>Aggressiveness: {fish.aggressiveness}</div>
-          <div>Reef Safe: {fish.reefSafe}</div>
-          <div>Minimun Tank Size: {fish.tank}</div>
-          <div>Max size: {fish.size}</div>
-          <div>Relative Care: {fish.care}</div>
+          <div>Reef Safe: {fish.is_reef_safe ? "Yes" : "No"}</div>
+          <div>Minimun Tank Size: {fish.minimum_tank_size_gallons}</div>
+          <div>Max size: {fish.max_size_inches}</div>
+          <div>Relative Care: {fish.relative_care}</div>
           <div>Description: {fish.description}</div>
         </div>
       </div>

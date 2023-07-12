@@ -2,7 +2,7 @@ import { LoaderArgs, SerializeFrom } from "@remix-run/node";
 import { Outlet, useLoaderData, useRouteLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getLifeEventsByFishId } from "~/models/fish.server";
-import { useAllFishData } from "../fish";
+import { useAllFishTypeData, useAllFishData } from "../fish";
 import FishTypeDetail from "./FishTypeDetail";
 
 export async function loader({ params }: LoaderArgs) {
@@ -16,13 +16,14 @@ export async function loader({ params }: LoaderArgs) {
 export default function Index() {
   const loaderData = useLoaderData<typeof loader>();
   const lifeEvents = loaderData.lifeEvents;
+  const fishData = useAllFishData();
 
   const fishTypeData = useFishTypeData();
   return (
     <div className="">
       {fishTypeData && (
         <>
-          <FishTypeDetail {...fishTypeData} />
+          <FishTypeDetail fish={fishTypeData} aquarium={fishData} />
           <h3>Life Events for {fishTypeData.name}</h3>
           {lifeEvents.map((event, i) => (
             <div key={i}>{event.description}</div>
@@ -39,7 +40,7 @@ export const useFishTypeData = () => {
     typeof loader
   >;
 
-  const allFishData = useAllFishData();
+  const allFishData = useAllFishTypeData();
   const fishTypeData = allFishData.find(
     (fish) => fish.id === loaderData.fishId
   );

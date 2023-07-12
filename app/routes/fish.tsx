@@ -14,9 +14,20 @@ export default function FishLayout() {
   );
 }
 
-export const useAllFishData = () => {
+export const useAllFishTypeData = () => {
   const allFishData = useRouteLoaderData("routes/fish") as SerializeFrom<
     typeof loader
   >;
   return allFishData;
+};
+
+export const useAllFishData = () => {
+  const data = [
+    {
+      name: "Nemo",
+      distinguishing_characteristics: "something",
+      fish_type_id: "0a4e26b0-0b8a-47fe-a325-6e68ce83f3bb",
+    },
+  ];
+  return data;
 };

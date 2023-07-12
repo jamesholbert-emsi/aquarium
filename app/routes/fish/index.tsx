@@ -1,16 +1,15 @@
-import { useAllFishData } from "../fish";
-import { Link } from "@remix-run/react";
+import { useAllFishTypeData } from "../fish";
+// import { Link } from "@remix-run/react";
 import { getAllFish } from "~/models/fish.server";
 import SingleFish from "./SingleFish";
-import FishDetail from "./FishDetail";
-import NavBar from "../NavBar";
+// import NavBar from "../NavBar";
 
 export async function loader() {
   return await getAllFish();
 }
 
 export default function Index() {
-  const fishies = useAllFishData();
+  const fishies = useAllFishTypeData();
 
   const fishes = fishies.map((f) => <SingleFish {...f} key={f.name} />);
   // const aquarium = fish.slice(2);

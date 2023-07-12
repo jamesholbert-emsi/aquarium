@@ -1,21 +1,20 @@
 import { supabase } from "./user.server";
 
-export type Fish = {
+export type FishType = {
   id: string;
   name: string;
-  scientificName: string;
-  distinguishingCharacteristics: string[];
-  habitat: string;
+  scientific_name?: string;
   family?: string;
   color?: string;
-  diet?: string;
+  fish_diet?: string;
   aggressiveness?: string;
-  tank?: string;
-  size?: string;
-  reefSafe?: boolean;
-  care?: string;
+  minimum_tank_size_gallons?: number;
+  max_size_inches?: number;
+  is_reef_safe?: boolean;
+  relative_care?: string;
+  created_at?: string;
   description?: string;
-  image_url: string;
+  image_url?: string;
 };
 
 export type LifeEvent = {
@@ -27,13 +26,13 @@ export async function getAllFish() {
   const { data, error } = await supabase.from("fish_type").select("*");
 
   if (!error) {
-    return data as unknown as Fish[];
+    return data as unknown as FishType[];
   }
 
   return [];
 }
 
-export async function addFish(fish: Fish): Promise<Fish | null> {
+export async function addFish(fish: FishType): Promise<FishType | null> {
   const { data, error } = await supabase
     .from("fish")
     .insert([fish])
@@ -48,7 +47,7 @@ export async function addFish(fish: Fish): Promise<Fish | null> {
   return null;
 }
 
-export async function updateFish(fish: Fish): Promise<true | null> {
+export async function updateFish(fish: FishType): Promise<true | null> {
   console.log(fish);
   return true;
   // TODO: Derek/Shashi, get this working
