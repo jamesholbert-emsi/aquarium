@@ -45,7 +45,7 @@ const dummyFish: Fish[] = [
 ];
 
 export async function getAllFish() {
-  const { data, error } = await supabase.from("fish").select("*");
+  const { data, error } = await supabase.from("fish_type").select("*");
 
   if (!error) {
     return data as unknown as Fish[];
