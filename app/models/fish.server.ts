@@ -6,6 +6,16 @@ export type Fish = {
   scientificName: string;
   distinguishingCharacteristics: string[];
   habitat: string;
+  family?: string;
+  color?: string;
+  diet?: string;
+  aggressiveness?: string;
+  tank?: string;
+  size?: string;
+  reefSafe?: boolean;
+  care?: string;
+  description?: string;
+  image_url: string;
 };
 
 export type LifeEvent = {
@@ -13,45 +23,14 @@ export type LifeEvent = {
   fishIds: string[];
 };
 
-const dummyFish: Fish[] = [
-  {
-    id: "first",
-    name: "One Fish",
-    scientificName: "Blahblah",
-    distinguishingCharacteristics: [],
-    habitat: "The Ocean",
-  },
-  {
-    id: "second",
-    name: "Two Fish",
-    scientificName: "Blahblah",
-    distinguishingCharacteristics: [],
-    habitat: "The Ocean",
-  },
-  {
-    id: "third",
-    name: "Red Fish",
-    scientificName: "Blahblah",
-    distinguishingCharacteristics: [],
-    habitat: "The Ocean",
-  },
-  {
-    id: "fourth",
-    name: "Blue Fish",
-    scientificName: "Blahblah",
-    distinguishingCharacteristics: [],
-    habitat: "The Ocean",
-  },
-];
-
 export async function getAllFish() {
-  const { data, error } = await supabase.from("fish").select("*");
+  const { data, error } = await supabase.from("fish_type").select("*");
 
   if (!error) {
     return data as unknown as Fish[];
   }
 
-  return dummyFish;
+  return [];
 }
 
 export async function addFish(fish: Fish): Promise<Fish | null> {

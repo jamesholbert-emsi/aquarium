@@ -1,13 +1,9 @@
 import { LoaderArgs, SerializeFrom } from "@remix-run/node";
-import {
-  Link,
-  Outlet,
-  useLoaderData,
-  useRouteLoaderData,
-} from "@remix-run/react";
+import { Outlet, useLoaderData, useRouteLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getLifeEventsByFishId } from "~/models/fish.server";
 import { useAllFishData } from "../fish";
+import FishTypeDetail from "./FishTypeDetail";
 
 export async function loader({ params }: LoaderArgs) {
   const fishId = params["fishId"];
@@ -26,6 +22,7 @@ export default function Index() {
     <div className="">
       {fishTypeData && (
         <>
+          <FishTypeDetail {...fishTypeData} />
           <h3>Life Events for {fishTypeData.name}</h3>
           {lifeEvents.map((event, i) => (
             <div key={i}>{event.description}</div>
