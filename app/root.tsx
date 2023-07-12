@@ -5,6 +5,7 @@ import type {
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -40,6 +41,10 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
+        <h1>
+          Page Root Nav spot??
+        </h1>
+        <Link to="/">Home</Link>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

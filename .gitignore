@@ -9,3 +9,8 @@ node_modules
 /app/styles/tailwind.css
 
 cypress/videos/
+
+# Local Netlify folder
+.netlify
+
+.history/
