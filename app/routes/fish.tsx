@@ -27,6 +27,13 @@ export const useAllFishData = () => {
       name: "Nemo",
       distinguishing_characteristics: "something",
       fish_type_id: "0a4e26b0-0b8a-47fe-a325-6e68ce83f3bb",
+      created_at: "2022",
+    },
+    {
+      name: "Marlin",
+      distinguishing_characteristics: "something",
+      fish_type_id: "0a4e26b0-0b8a-47fe-a325-6e68ce83f3bb",
+      created_at: "2015",
     },
   ];
   return data;
