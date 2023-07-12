@@ -23,6 +23,7 @@ export default function Index() {
   const lifeEvents = loaderData.lifeEvents;
 
   const fishTypeData = useFishTypeData();
+
   return (
     <div className="">
       <h1 className="flex justify-center p-5 text-xl text-white bg-blue-600 ">
@@ -30,7 +31,7 @@ export default function Index() {
           Aquarium
         </Link>
         /{" "}
-        <Link className="ml-1" to={`/fish/${fishTypeData?.id}`}>
+        <Link className="ml-2" to={`/fish/${fishTypeData?.id}`}>
           {fishTypeData?.name}
         </Link>
         {}
