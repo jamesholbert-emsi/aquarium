@@ -68,3 +68,9 @@ export async function addFish(fish: Fish): Promise<Fish | null> {
 
   return null;
 }
+
+export async function getLifeEventsByFishId(
+  fishId: string
+): Promise<LifeEvent[]> {
+  return [] as LifeEvent[];
+}

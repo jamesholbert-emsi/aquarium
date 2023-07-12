@@ -13,10 +13,8 @@ export default function Index() {
     <main className="">
       Main page for fishies
       {fishies.map((fish) => (
-        <div>
-          <Link to={`/fish/${fish.id}`} key={fish.name}>
-            {fish.name}
-          </Link>
+        <div key={fish.name}>
+          <Link to={`/fish/${fish.id}`}>{fish.name}</Link>
         </div>
       ))}
       <div>
