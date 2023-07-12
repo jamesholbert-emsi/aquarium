@@ -1,4 +1,10 @@
-import { Link, Outlet } from "@remix-run/react";
+import { SerializeFrom } from "@remix-run/node";
+import { Link, Outlet, useRouteLoaderData } from "@remix-run/react";
+import { getAllFish } from "~/models/fish.server";
+
+export async function loader() {
+  return await getAllFish();
+}
 
 export default function FishLayout() {
   return (
@@ -10,3 +16,10 @@ export default function FishLayout() {
     </div>
   );
 }
+
+export const useAllFishData = () => {
+  const allFishData = useRouteLoaderData("routes/fish") as SerializeFrom<
+    typeof loader
+  >;
+  return allFishData;
+};
