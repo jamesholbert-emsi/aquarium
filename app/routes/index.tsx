@@ -1,5 +1,4 @@
 import { redirect } from "@remix-run/node";
-import { Link } from "@remix-run/react";
 
 export async function loader() {
   return redirect("/fish");
