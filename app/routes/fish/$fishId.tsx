@@ -1,5 +1,10 @@
 import { LoaderArgs, SerializeFrom } from "@remix-run/node";
-import { Outlet, useLoaderData, useRouteLoaderData } from "@remix-run/react";
+import {
+  Link,
+  Outlet,
+  useLoaderData,
+  useRouteLoaderData,
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getLifeEventsByFishId } from "~/models/fish.server";
 import { useAllFishTypeData, useAllFishData } from "../fish";
@@ -19,8 +24,19 @@ export default function Index() {
   const fishData = useAllFishData();
 
   const fishTypeData = useFishTypeData();
+
   return (
     <div className="">
+      <h1 className="flex justify-center p-5 text-xl text-white bg-blue-600 ">
+        <Link to="/fish" className="mr-2">
+          Aquarium
+        </Link>
+        /{" "}
+        <Link className="ml-2" to={`/fish/${fishTypeData?.id}`}>
+          {fishTypeData?.name}
+        </Link>
+        {}
+      </h1>
       {fishTypeData && (
         <>
           <FishTypeDetail fish={fishTypeData} aquarium={fishData} />
