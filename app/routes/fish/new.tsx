@@ -1,10 +1,85 @@
+import { ActionArgs } from "@remix-run/node";
 import { Form } from "@remix-run/react";
+import invariant from "tiny-invariant";
+import { addFish } from "~/models/fish.server";
+
+export async function action({ request }: ActionArgs) {
+  const body = await request.formData();
+
+  const id = body.get("id");
+  invariant(typeof id === "string", "id field must be string");
+
+  const updatedFish = await addFish();
+
+  return updatedFish;
+}
 
 export default function Index() {
   return (
-    <div className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
-      ADD FISH HERE!
-      <Form></Form>
+    <div className="flex h-[80vh] items-center justify-center">
+      <div className="w-full max-w-xs">
+        <Form
+          className="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md"
+          method="post"
+        >
+          <Input name="name" placeHolder="Red Fish" />
+          <Input name="scientificName" placeHolder="Very Red Fish" />
+          <Input
+            name="distinguishingCharacteristics"
+            placeHolder="comma separated characteristics"
+          />
+          <Input name="habitat" placeHolder="The Ocean" />
+          <button className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+            Save
+          </button>
+        </Form>
+        <p className="text-xs text-center text-gray-500">
+          &copy;2023 Lightcast. All rights reserved.
+        </p>
+      </div>
     </div>
   );
 }
+
+// type FishProps = Fish
+
+const inputPrettyNames: Record<string, string> = {
+  name: "Common Name",
+  scientificName: "Scientific Name",
+  distinguishingCharacteristics: "Distinguishing Characteristics",
+  habitat: "Habitat",
+};
+
+const Input = ({
+  name,
+  placeHolder,
+}: {
+  name: string;
+  placeHolder: string;
+}) => {
+  return (
+    <div className="mb-4">
+      <label
+        className="block mb-2 text-sm font-bold text-gray-700"
+        htmlFor={name}
+      >
+        {inputPrettyNames[name]}
+      </label>
+      <input
+        className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:shadow-outline focus:outline-none"
+        id={name}
+        name={name}
+        type="text"
+        placeholder={placeHolder}
+      />
+    </div>
+  );
+};
+
+export type Fish = {
+  id: string;
+  name: string;
+  scientificName: string;
+  distinguishingCharacteristics: string[];
+  habitat: string;
+};
