@@ -1,4 +1,4 @@
-import { Form, Link } from "@remix-run/react";
+import { Form } from "@remix-run/react";
 
 export default function Index() {
   return (
